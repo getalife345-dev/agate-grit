@@ -1,0 +1,18 @@
+{
+  "name": "Agate & Grit Rock Tracker",
+  "short_name": "Agate & Grit",
+  "description": "Offline Rock Tumbling Tracker and Great Lakes Field Identifier",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b0e11",
+  "theme_color": "#121619",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%23161c22'/%3E%3Cpolygon points='256,72 420,190 360,420 152,420 92,190' fill='%23ff6b2b' stroke='%23d4885c' stroke-width='20'/%3E%3Cpolygon points='256,130 360,210 320,360 192,360 152,210' fill='%239c5a3c'/%3E%3Ccircle cx='256' cy='256' r='48' fill='%23f5f7fa'/%3E%3C/svg%3E",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

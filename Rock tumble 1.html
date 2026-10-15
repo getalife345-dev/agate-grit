@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#121619">
+  <meta name="description" content="Offline Rock Tumbling Tracker and Great Lakes Rock Identifier">
+  <title>Agate & Grit | Rock Tracker</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- TOP HEADER -->
+  <header class="app-header">
+    <div class="header-top">
+      <h1>AGATE &amp; GRIT</h1>
+      <span id="network-badge" class="badge offline">OFFLINE READY</span>
+    </div>
+    <div class="backup-bar">
+      <button id="btn-export" class="btn-small" type="button">⬇ Save Backup</button>
+      <label for="file-import" class="btn-small">⬆ Load Backup</label>
+      <input type="file" id="file-import" accept=".json" hidden>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT AREA -->
+  <main class="app-content">
+
+    <!-- MODULE 1: TUMBLER TRACKER -->
+    <section id="view-tumblers" class="view active">
+      <div class="section-title-row">
+        <h2>Active Tumblers</h2>
+        <button id="btn-open-log-form" class="btn-primary-inline" type="button">+ New Cycle</button>
+      </div>
+
+      <!-- Active Status Cards for "New" and "Old" (Rendered by app.js) -->
+      <div id="tumbler-cards-container" class="cards-grid"></div>
+
+      <!-- Log Cycle Form (Toggles open/closed) -->
+      <form id="form-tumbler-log" class="card form-card hidden">
+        <h3 id="form-title">Log Tumbler Stage</h3>
+
+        <label class="field-label" for="log-unit">Select Tumbler Unit</label>
+        <select id="log-unit" class="big-input" required></select>
+
+        <label class="field-label" for="log-stage">Grit Stage</label>
+        <select id="log-stage" class="big-input" required>
+          <option value="Stage 1: Coarse (60/90)">Stage 1: Coarse (60/90)</option>
+          <option value="Stage 2: Medium (120/220)">Stage 2: Medium (120/220)</option>
+          <option value="Stage 3: Pre-Polish (500)">Stage 3: Pre-Polish (500)</option>
+          <option value="Stage 4: Polish">Stage 4: Polish</option>
+        </select>
+
+        <label class="field-label" for="log-date">Start Date</label>
+        <input type="date" id="log-date" class="big-input" required>
+
+        <label class="field-label" for="log-notes">Batch Notes (Rocks, Ceramic Media, Lessons)</label>
+        <textarea id="log-notes" class="big-input" rows="3" placeholder="e.g., Lake Huron beach mix, added ceramic media..."></textarea>
+
+        <label class="field-label">Batch Photo (Optional)</label>
+        <label for="log-photo" class="btn-camera">
+          📷 Snap or Upload Batch Photo
+        </label>
+        <input type="file" id="log-photo" accept="image/*" capture="environment" hidden>
+        <img id="log-photo-preview" class="photo-preview hidden" alt="Batch preview">
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Save Stage Log</button>
+          <button type="button" id="btn-cancel-log" class="btn-secondary">Cancel</button>
+        </div>
+      </form>
+
+      <!-- Past Cycle History -->
+      <h2 class="sub-heading">Cycle History</h2>
+      <div id="tumbler-history-list" class="history-list"></div>
+    </section>
+
+    <!-- MODULE 2A: OFFLINE GREAT LAKES FIELD GUIDE -->
+    <section id="view-guide" class="view">
+      <h2>Great Lakes Field Guide</h2>
+      <p class="helper-text">Tap a trait below to filter rocks in the field.</p>
+
+      <!-- Quick Physical Trait Filter Buttons -->
+      <div class="filter-bar" id="guide-filters">
+        <button class="filter-pill active" data-filter="all" type="button">All Rocks</button>
+        <button class="filter-pill" data-filter="hard" type="button">Hard (No Knife Scratch)</button>
+        <button class="filter-pill" data-filter="soft" type="button">Soft (Knife Scratches)</button>
+        <button class="filter-pill" data-filter="banded" type="button">Banded / Striped</button>
+        <button class="filter-pill" data-filter="uv" type="button">UV Glow</button>
+      </div>
+
+      <!-- Quick Field Test Cheat Sheet -->
+      <div class="card test-cheat-sheet">
+        <h3>⚡ Pocket Scratch &amp; Field Check</h3>
+        <ul>
+          <li><strong>Pocket Knife / Steel Nail (Mohs ~5.5):</strong> Won't scratch Agate, Jasper, or Quartzite (Mohs 7). <em>Will</em> scratch Petoskey stones (Mohs 4.5).</li>
+          <li><strong>Water Test:</strong> Wet the rock! Agate bands and Petoskey coral patterns pop brightly when wet.</li>
+          <li><strong>365nm UV Light:</strong> Best wavelength for spotting Yooperlite glowing orange embers.</li>
+        </ul>
+      </div>
+
+      <!-- Rock Guide Cards (Rendered by app.js) -->
+      <div id="guide-cards-container" class="cards-list"></div>
+    </section>
+
+    <!-- MODULE 2B: HYBRID AI ROCK SCANNER -->
+    <section id="view-scanner" class="view">
+      <h2>Field Rock Scanner</h2>
+      <p class="helper-text">Snap a photo on the beach. If you have no signal, it saves to your phone so you can run AI ID when you get back home.</p>
+
+      <!-- Main Camera Capture Card -->
+      <div class="card scanner-card">
+        <label for="scanner-camera-input" class="btn-camera-giant">
+          📸 SNAP ROCK PHOTO
+        </label>
+        <input type="file" id="scanner-camera-input" accept="image/*" capture="environment" hidden>
+
+        <img id="scanner-preview" class="photo-preview hidden" alt="Scanned rock">
+
+        <label class="field-label" for="scanner-notes">Field Notes / Location (Optional)</label>
+        <input type="text" id="scanner-notes" class="big-input" placeholder="e.g., Found wet near Grand Haven pier, doesn't scratch">
+
+        <div class="scanner-actions">
+          <button id="btn-analyze-now" class="btn-primary" type="button" disabled>✨ Identify with AI Now</button>
+          <button id="btn-save-queue" class="btn-secondary" type="button" disabled>📥 Save to Offline Queue</button>
+        </div>
+
+        <div id="ai-result-box" class="ai-result hidden"></div>
+      </div>
+
+      <!-- API Key Setup Card -->
+      <div class="card api-card">
+        <h3>🔑 Gemini API Key Setup (Stored on Device Only)</h3>
+        <p class="helper-text">Paste a free Google AI Studio key below, or hardcode it in <code>app.js</code>.</p>
+        <div class="api-row">
+          <input type="password" id="api-key-input" class="big-input" placeholder="AIzaSy...">
+          <button id="btn-save-key" class="btn-small-accent" type="button">Save Key</button>
+        </div>
+      </div>
+
+      <!-- Saved / Offline Triage Queue -->
+      <h2 class="sub-heading">Saved Field Finds (<span id="queue-count">0</span>)</h2>
+      <div id="scanner-queue-list" class="history-list"></div>
+    </section>
+
+  </main>
+
+  <!-- CHUNKY BOTTOM NAVIGATION BAR -->
+  <nav class="bottom-nav">
+    <button class="nav-btn active" data-target="view-tumblers" type="button">
+      <span class="nav-icon">⚙️</span>
+      <span class="nav-label">Tumblers</span>
+    </button>
+    <button class="nav-btn" data-target="view-guide" type="button">
+      <span class="nav-icon">🪨</span>
+      <span class="nav-label">Field Guide</span>
+    </button>
+    <button class="nav-btn" data-target="view-scanner" type="button">
+      <span class="nav-icon">🔍</span>
+      <span class="nav-label">AI Scanner</span>
+    </button>
+  </nav>
+
+  <script src="app.js"></script>
+</body>
+</html>
