@@ -5,12 +5,12 @@
   --border-copper: #9c5a3c;
   --accent-copper: #d4885c;
   --accent-agate: #ff6b2b;
-  --accent-agate-hover: #ff8552;
+  --accent-pine: #2d6a4f;
+  --accent-gold: #ffb703;
   --text-bright: #f5f7fa;
   --text-muted: #b0bac5;
   --status-green: #2ecc71;
   --status-amber: #f39c12;
-  --danger-red: #e74c3c;
 }
 
 * {
@@ -26,7 +26,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 18px;
   line-height: 1.45;
-  padding-bottom: 105px; /* Space for chunky bottom nav */
+  padding-bottom: 105px;
 }
 
 /* HEADER */
@@ -68,9 +68,9 @@ body {
 }
 
 .badge.offline {
-  background-color: #4a3310;
+  background-color: #3b2a14;
   color: #ffd080;
-  border: 1px solid var(--status-amber);
+  border: 1px solid var(--accent-copper);
 }
 
 .backup-bar {
@@ -154,7 +154,7 @@ h2 {
 }
 
 .tumbler-name {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 900;
   color: var(--accent-copper);
 }
@@ -165,7 +165,7 @@ h2 {
   font-weight: 900;
   padding: 6px 12px;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 0.95rem;
 }
 
 .stage-banner {
@@ -198,8 +198,16 @@ h2 {
   color: var(--accent-copper);
 }
 
+.photo-btn-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
 .btn-primary,
 .btn-secondary,
+.btn-celebrate,
 .btn-camera,
 .btn-camera-giant {
   display: flex;
@@ -208,18 +216,26 @@ h2 {
   width: 100%;
   min-height: 60px;
   border-radius: 12px;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 800;
   cursor: pointer;
   border: none;
   text-align: center;
-  padding: 14px;
+  padding: 12px;
   margin-top: 8px;
 }
 
 .btn-primary {
   background-color: var(--accent-agate);
   color: #000;
+}
+
+.btn-celebrate {
+  background: linear-gradient(135deg, #2d6a4f, #ffb703);
+  color: #000;
+  border: 2px solid #ffd166;
+  font-size: 1.15rem;
+  box-shadow: 0 0 15px rgba(255, 183, 3, 0.4);
 }
 
 .btn-primary:disabled,
@@ -249,15 +265,15 @@ h2 {
   background-color: #263340;
   color: var(--text-bright);
   border: 2px dashed var(--accent-agate);
-  margin-bottom: 12px;
+  margin-top: 0;
 }
 
 .btn-camera-giant {
-  min-height: 84px;
-  font-size: 1.35rem;
+  min-height: 78px;
+  font-size: 1.1rem;
   background-color: var(--accent-agate);
   color: #000;
-  margin-bottom: 16px;
+  margin-top: 0;
 }
 
 .btn-delete {
@@ -266,7 +282,7 @@ h2 {
   border: 1px solid #ff7675;
   border-radius: 8px;
   padding: 8px 14px;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 700;
   margin-top: 10px;
   cursor: pointer;
@@ -274,7 +290,7 @@ h2 {
 
 .photo-preview {
   width: 100%;
-  max-height: 260px;
+  max-height: 280px;
   object-fit: cover;
   border-radius: 10px;
   border: 2px solid var(--accent-copper);
@@ -285,7 +301,71 @@ h2 {
   display: none !important;
 }
 
-/* FILTER BAR (FIELD GUIDE) */
+/* VERTICAL PHOTO TIMELINE */
+.timeline-feed {
+  position: relative;
+  margin-top: 20px;
+  padding-left: 28px;
+  border-left: 4px solid var(--border-copper);
+}
+
+.timeline-node {
+  position: relative;
+  background-color: var(--bg-card);
+  border: 2px solid var(--border-copper);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
+.timeline-node::before {
+  content: "";
+  position: absolute;
+  left: -39px;
+  top: 20px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: var(--accent-agate);
+  border: 3px solid var(--bg-obsidian);
+  box-shadow: 0 0 0 2px var(--accent-copper);
+}
+
+.timeline-node.completed-node {
+  border-color: var(--accent-gold);
+}
+
+.timeline-node.completed-node::before {
+  background-color: var(--accent-gold);
+}
+
+.timeline-date {
+  font-size: 0.9rem;
+  color: var(--accent-copper);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.timeline-unit {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: var(--text-bright);
+  margin: 2px 0 6px;
+}
+
+.timeline-stage-pill {
+  display: inline-block;
+  background-color: var(--bg-obsidian);
+  border-left: 4px solid var(--accent-agate);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 800;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+/* FILTER BAR & TRAIT TOGGLES */
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
@@ -293,18 +373,20 @@ h2 {
   margin-bottom: 16px;
 }
 
-.filter-pill {
+.filter-pill,
+.trait-toggle {
   background-color: var(--bg-card);
   color: var(--text-bright);
   border: 2px solid var(--border-copper);
   border-radius: 10px;
-  padding: 12px 14px;
-  font-size: 1rem;
+  padding: 10px 14px;
+  font-size: 0.95rem;
   font-weight: 700;
   cursor: pointer;
 }
 
-.filter-pill.active {
+.filter-pill.active,
+.trait-toggle.active {
   background-color: var(--accent-agate);
   color: #000;
   border-color: var(--accent-agate);
@@ -344,27 +426,6 @@ h2 {
   font-size: 0.95rem;
 }
 
-/* AI SCANNER */
-.api-row {
-  display: flex;
-  gap: 8px;
-}
-
-.api-row .big-input {
-  margin-bottom: 0;
-}
-
-.btn-small-accent {
-  background-color: var(--accent-copper);
-  color: #000;
-  border: none;
-  border-radius: 10px;
-  padding: 0 18px;
-  font-weight: 900;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
 .ai-result {
   margin-top: 16px;
   padding: 14px;
@@ -374,7 +435,71 @@ h2 {
   white-space: pre-wrap;
 }
 
-/* BOTTOM NAVIGATION BAR */
+/* MICHIGAN NATURE STAGE 4 CELEBRATION OVERLAY */
+.celebration-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 12, 16, 0.92);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+#celebration-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.celebration-card {
+  position: relative;
+  z-index: 501;
+  background: linear-gradient(180deg, #16241f 0%, #161c22 100%);
+  border: 3px solid var(--accent-gold);
+  border-radius: 18px;
+  padding: 22px;
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8);
+}
+
+.michigan-svg {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 2px solid var(--border-copper);
+  margin-bottom: 14px;
+}
+
+.celebration-tag {
+  display: inline-block;
+  background-color: var(--accent-pine);
+  color: #fff;
+  font-weight: 900;
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.celebration-card h2 {
+  color: var(--accent-gold);
+  font-size: 1.6rem;
+  margin-bottom: 8px;
+}
+
+.celebration-card p {
+  color: var(--text-bright);
+  margin-bottom: 16px;
+}
+
+/* BOTTOM NAVIGATION BAR (4 TABS) */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -407,10 +532,10 @@ h2 {
 }
 
 .nav-icon {
-  font-size: 1.6rem;
+  font-size: 1.45rem;
 }
 
 .nav-label {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 800;
 }
