@@ -15,7 +15,7 @@
   <header class="app-header">
     <div class="header-top">
       <h1>AGATE &amp; GRIT</h1>
-      <span id="network-badge" class="badge offline">OFFLINE READY</span>
+      <span id="network-badge" class="badge offline">100% LOCAL</span>
     </div>
     <div class="backup-bar">
       <button id="btn-export" class="btn-small" type="button">⬇ Save Backup</button>
@@ -27,21 +27,18 @@
   <!-- MAIN CONTENT AREA -->
   <main class="app-content">
 
-    <!-- MODULE 1: TUMBLER TRACKER -->
+    <!-- PAGE 1: TUMBLER DASHBOARD -->
     <section id="view-tumblers" class="view active">
       <div class="section-title-row">
-        <h2>Active Tumblers</h2>
-        <button id="btn-open-log-form" class="btn-primary-inline" type="button">+ New Cycle</button>
+        <h2>Active Barrels</h2>
+        <button id="btn-open-log-form" class="btn-primary-inline" type="button">+ Log Stage</button>
       </div>
-
-      <!-- Active Status Cards for "New" and "Old" (Rendered by app.js) -->
-      <div id="tumbler-cards-container" class="cards-grid"></div>
 
       <!-- Log Cycle Form (Toggles open/closed) -->
       <form id="form-tumbler-log" class="card form-card hidden">
         <h3 id="form-title">Log Tumbler Stage</h3>
 
-        <label class="field-label" for="log-unit">Select Tumbler Unit</label>
+        <label class="field-label" for="log-unit">Select Barrel</label>
         <select id="log-unit" class="big-input" required></select>
 
         <label class="field-label" for="log-stage">Grit Stage</label>
@@ -56,109 +53,172 @@
         <input type="date" id="log-date" class="big-input" required>
 
         <label class="field-label" for="log-notes">Batch Notes (Rocks, Ceramic Media, Lessons)</label>
-        <textarea id="log-notes" class="big-input" rows="3" placeholder="e.g., Lake Huron beach mix, added ceramic media..."></textarea>
+        <textarea id="log-notes" class="big-input" rows="3" placeholder="e.g., Lake Superior agates & jasper, added ceramic media..."></textarea>
 
-        <label class="field-label">Batch Photo (Optional)</label>
-        <label for="log-photo" class="btn-camera">
-          📷 Snap or Upload Batch Photo
-        </label>
-        <input type="file" id="log-photo" accept="image/*" capture="environment" hidden>
+        <label class="field-label">Batch Photo (Take New or Upload Existing)</label>
+        <div class="photo-btn-grid">
+          <label for="log-photo-upload" class="btn-camera">
+            🖼️ Upload Photo
+          </label>
+          <label for="log-photo-camera" class="btn-camera">
+            📷 Take Photo
+          </label>
+        </div>
+        <!-- Separate inputs so Android lets you pick from gallery OR open camera -->
+        <input type="file" id="log-photo-upload" accept="image/*" hidden>
+        <input type="file" id="log-photo-camera" accept="image/*" capture="environment" hidden>
+
         <img id="log-photo-preview" class="photo-preview hidden" alt="Batch preview">
 
         <div class="form-actions">
-          <button type="submit" class="btn-primary">Save Stage Log</button>
+          <button type="submit" class="btn-primary">Save to Timeline</button>
           <button type="button" id="btn-cancel-log" class="btn-secondary">Cancel</button>
         </div>
       </form>
 
-      <!-- Past Cycle History -->
-      <h2 class="sub-heading">Cycle History</h2>
-      <div id="tumbler-history-list" class="history-list"></div>
+      <!-- Active Status Cards for Gritty Titty, Sludge Slut, DP1, DP2 -->
+      <div id="tumbler-cards-container" class="cards-grid"></div>
     </section>
 
-    <!-- MODULE 2A: OFFLINE GREAT LAKES FIELD GUIDE -->
+    <!-- PAGE 2: DEDICATED VISUAL TIMELINE -->
+    <section id="view-timeline" class="view">
+      <h2>Batch Progression Timeline</h2>
+      <p class="helper-text">Tap a barrel below to filter its stage-by-stage photo progression.</p>
+
+      <div class="filter-bar" id="timeline-filters">
+        <button class="filter-pill active" data-unit="all" type="button">All Barrels</button>
+        <button class="filter-pill" data-unit="Gritty Titty" type="button">Gritty Titty</button>
+        <button class="filter-pill" data-unit="Sludge Slut" type="button">Sludge Slut</button>
+        <button class="filter-pill" data-unit="The DP (DP1)" type="button">DP1</button>
+        <button class="filter-pill" data-unit="The DP (DP2)" type="button">DP2</button>
+      </div>
+
+      <div id="timeline-container" class="timeline-feed"></div>
+    </section>
+
+    <!-- PAGE 3: OFFLINE GREAT LAKES FIELD GUIDE -->
     <section id="view-guide" class="view">
       <h2>Great Lakes Field Guide</h2>
-      <p class="helper-text">Tap a trait below to filter rocks in the field.</p>
+      <p class="helper-text">Tap a trait below to filter rocks on the shoreline.</p>
 
-      <!-- Quick Physical Trait Filter Buttons -->
       <div class="filter-bar" id="guide-filters">
         <button class="filter-pill active" data-filter="all" type="button">All Rocks</button>
         <button class="filter-pill" data-filter="hard" type="button">Hard (No Knife Scratch)</button>
-        <button class="filter-pill" data-filter="soft" type="button">Soft (Knife Scratches)</button>
         <button class="filter-pill" data-filter="banded" type="button">Banded / Striped</button>
+        <button class="filter-pill" data-filter="green-pink" type="button">Green / Pink</button>
         <button class="filter-pill" data-filter="uv" type="button">UV Glow</button>
       </div>
 
-      <!-- Quick Field Test Cheat Sheet -->
       <div class="card test-cheat-sheet">
         <h3>⚡ Pocket Scratch &amp; Field Check</h3>
         <ul>
-          <li><strong>Pocket Knife / Steel Nail (Mohs ~5.5):</strong> Won't scratch Agate, Jasper, or Quartzite (Mohs 7). <em>Will</em> scratch Petoskey stones (Mohs 4.5).</li>
-          <li><strong>Water Test:</strong> Wet the rock! Agate bands and Petoskey coral patterns pop brightly when wet.</li>
-          <li><strong>365nm UV Light:</strong> Best wavelength for spotting Yooperlite glowing orange embers.</li>
+          <li><strong>Pocket Knife / Steel Nail (Mohs ~5.5):</strong> Won't scratch Agate, Jasper, Chert, or Quartzite (Mohs 7).</li>
+          <li><strong>Water Test:</strong> Wet the stone! Agate banding and Unakite colors pop immediately when wet.</li>
+          <li><strong>365nm UV Light:</strong> Best wavelength for spotting glowing orange Yooperlite veins.</li>
         </ul>
       </div>
 
-      <!-- Rock Guide Cards (Rendered by app.js) -->
       <div id="guide-cards-container" class="cards-list"></div>
     </section>
 
-    <!-- MODULE 2B: HYBRID AI ROCK SCANNER -->
+    <!-- PAGE 4: BUILT-IN ROCK SCANNER (NO API KEY NEEDED) -->
     <section id="view-scanner" class="view">
-      <h2>Field Rock Scanner</h2>
-      <p class="helper-text">Snap a photo on the beach. If you have no signal, it saves to your phone so you can run AI ID when you get back home.</p>
+      <h2>Built-In Rock Scanner</h2>
+      <p class="helper-text">No API keys or setup needed. Snap or upload a rock photo to analyze its colors and physical traits right on your phone.</p>
 
-      <!-- Main Camera Capture Card -->
       <div class="card scanner-card">
-        <label for="scanner-camera-input" class="btn-camera-giant">
-          📸 SNAP ROCK PHOTO
-        </label>
+        <div class="photo-btn-grid">
+          <label for="scanner-upload-input" class="btn-camera-giant">
+            🖼️ UPLOAD PHOTO
+          </label>
+          <label for="scanner-camera-input" class="btn-camera-giant">
+            📸 TAKE PHOTO
+          </label>
+        </div>
+        <input type="file" id="scanner-upload-input" accept="image/*" hidden>
         <input type="file" id="scanner-camera-input" accept="image/*" capture="environment" hidden>
 
+        <canvas id="color-analysis-canvas" hidden></canvas>
         <img id="scanner-preview" class="photo-preview hidden" alt="Scanned rock">
 
-        <label class="field-label" for="scanner-notes">Field Notes / Location (Optional)</label>
-        <input type="text" id="scanner-notes" class="big-input" placeholder="e.g., Found wet near Grand Haven pier, doesn't scratch">
+        <!-- Quick Trait Toggles for Instant Built-in ID -->
+        <div id="scanner-trait-box" class="trait-box hidden">
+          <label class="field-label">Quick Trait Check (Optional):</label>
+          <div class="filter-bar">
+            <button type="button" class="trait-toggle" data-trait="banded">Has Bands/Stripes</button>
+            <button type="button" class="trait-toggle" data-trait="translucent">Glows with Flashlight</button>
+            <button type="button" class="trait-toggle" data-trait="pebbles">Has Pebbles Inside</button>
+            <button type="button" class="trait-toggle" data-trait="uv">Glows Orange under UV</button>
+          </div>
+        </div>
+
+        <label class="field-label" for="scanner-notes">Field Notes / Beach Location (Optional)</label>
+        <input type="text" id="scanner-notes" class="big-input" placeholder="e.g., Found wet at Two Hearted River, super hard">
 
         <div class="scanner-actions">
-          <button id="btn-analyze-now" class="btn-primary" type="button" disabled>✨ Identify with AI Now</button>
-          <button id="btn-save-queue" class="btn-secondary" type="button" disabled>📥 Save to Offline Queue</button>
+          <button id="btn-analyze-now" class="btn-primary" type="button" disabled>🔍 Run Instant Rock ID</button>
+          <button id="btn-save-queue" class="btn-secondary" type="button" disabled>📥 Save to Field Log</button>
         </div>
 
         <div id="ai-result-box" class="ai-result hidden"></div>
       </div>
 
-      <!-- API Key Setup Card -->
-      <div class="card api-card">
-        <h3>🔑 Gemini API Key Setup (Stored on Device Only)</h3>
-        <p class="helper-text">Paste a free Google AI Studio key below, or hardcode it in <code>app.js</code>.</p>
-        <div class="api-row">
-          <input type="password" id="api-key-input" class="big-input" placeholder="AIzaSy...">
-          <button id="btn-save-key" class="btn-small-accent" type="button">Save Key</button>
-        </div>
-      </div>
-
-      <!-- Saved / Offline Triage Queue -->
       <h2 class="sub-heading">Saved Field Finds (<span id="queue-count">0</span>)</h2>
       <div id="scanner-queue-list" class="history-list"></div>
     </section>
 
   </main>
 
-  <!-- CHUNKY BOTTOM NAVIGATION BAR -->
+  <!-- MICHIGAN NATURE STAGE 4 CELEBRATION MODAL -->
+  <div id="celebration-modal" class="celebration-overlay hidden">
+    <canvas id="celebration-canvas"></canvas>
+    <div class="celebration-card">
+      <!-- Custom Great Lakes & Northwoods SVG Scene -->
+      <svg class="michigan-svg" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg">
+        <!-- Night Sky & Northern Glow -->
+        <rect width="300" height="160" rx="14" fill="#0d1b2a"/>
+        <circle cx="240" cy="40" r="22" fill="#ffb703" opacity="0.9"/>
+        <!-- glowing agate sun rays -->
+        <circle cx="240" cy="40" r="34" fill="#ff6b2b" opacity="0.3"/>
+        <!-- Northwoods Pine Trees -->
+        <polygon points="35,35 10,115 60,115" fill="#1b4332"/>
+        <polygon points="35,20 15,80 55,80" fill="#2d6a4f"/>
+        <polygon points="75,45 50,120 100,120" fill="#1b4332"/>
+        <polygon points="115,30 85,118 145,118" fill="#2d6a4f"/>
+        <polygon points="155,50 130,120 180,120" fill="#1b4332"/>
+        <!-- Lake Superior Waves -->
+        <path d="M0,115 Q35,105 75,115 T150,115 T225,115 T300,115 L300,160 L0,160 Z" fill="#1d3557"/>
+        <path d="M0,132 Q45,122 90,132 T180,132 T270,132 T300,132 L300,160 L0,160 Z" fill="#457b9d"/>
+        <!-- Glowing Polished Lake Superior Agate in Center -->
+        <polygon points="150,65 182,85 170,122 130,122 118,85" fill="#ff6b2b" stroke="#ffd166" stroke-width="3"/>
+        <polygon points="150,76 170,90 162,112 138,112 130,90" fill="#9c5a3c" stroke="#ffb703" stroke-width="2"/>
+        <circle cx="143" cy="86" r="4" fill="#ffffff"/>
+      </svg>
+
+      <div class="celebration-tag">🌲 PURE MICHIGAN POLISH COMPLETE 🌊</div>
+      <h2 id="celebration-title">Stage 4 Masterpiece!</h2>
+      <p id="celebration-text">Lake Superior glass shine unlocked! Your completed polish has been stamped onto your Timeline.</p>
+      <button id="btn-close-celebration" class="btn-primary" type="button">🪨 Hell Yeah — Back to Barrels</button>
+    </div>
+  </div>
+
+  <!-- CHUNKY 4-TAB BOTTOM NAVIGATION BAR -->
   <nav class="bottom-nav">
     <button class="nav-btn active" data-target="view-tumblers" type="button">
       <span class="nav-icon">⚙️</span>
-      <span class="nav-label">Tumblers</span>
+      <span class="nav-label">Barrels</span>
+    </button>
+    <button class="nav-btn" data-target="view-timeline" type="button">
+      <span class="nav-icon">⏳</span>
+      <span class="nav-label">Timeline</span>
     </button>
     <button class="nav-btn" data-target="view-guide" type="button">
       <span class="nav-icon">🪨</span>
-      <span class="nav-label">Field Guide</span>
+      <span class="nav-label">Guide</span>
     </button>
     <button class="nav-btn" data-target="view-scanner" type="button">
       <span class="nav-icon">🔍</span>
-      <span class="nav-label">AI Scanner</span>
+      <span class="nav-label">Scanner</span>
     </button>
   </nav>
 
