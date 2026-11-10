@@ -1,80 +1,72 @@
 /**
- * AGATE & GRIT v2 - Offline-First PWA Logic
- * Custom Built for Google Pixel 11 Pro
+ * AGATE & GRIT v3 — Pro Workshop Edition
+ * 100% Local IndexedDB Architecture for Google Pixel 11 Pro
  */
 
 // ==========================================
-// 1. TUMBLER BARREL CONFIGURATION
+// 1. TUMBLER BARREL LINEUP (5 UNITS)
 // ==========================================
 const TUMBLER_UNITS = [
-  { id: 'Gritty Titty', name: 'Gritty Titty' },
-  { id: 'Sludge Slut', name: 'Sludge Slut' },
-  { id: 'The DP (DP1)', name: 'The DP — Barrel 1 (DP1)' },
-  { id: 'The DP (DP2)', name: 'The DP — Barrel 2 (DP2)' }
+  { id: 'Gritty Titty', name: 'Gritty Titty', type: 'Single Barrel Unit' },
+  { id: 'Sludge Slut', name: 'Sludge Slut', type: 'Single Barrel Unit' },
+  { id: 'The Grit-toris', name: 'The Grit-toris', type: 'Single Barrel Unit' },
+  { id: 'The DP (DP1)', name: 'The DP (DP1)', type: 'Dual Barrel — Drum 1' },
+  { id: 'The DP (DP2)', name: 'The DP (DP2)', type: 'Dual Barrel — Drum 2' }
 ];
 
-// Great Lakes Rock Guide Data
 const GREAT_LAKES_ROCKS = [
   {
     name: 'Lake Superior Agate',
-    hardness: 'Mohs 7 (Hard - Steel knife will NOT scratch)',
-    uv: 'None',
+    hardness: 'MOHS 7.0',
+    uv: 'NON-REACTIVE',
     tags: ['hard', 'banded'],
-    checklist: 'Tight concentric iron-red, orange, or white bands, waxy quartz shine inside broken faces, and surface pitting. Translucent glow when held to a flashlight.',
-    tumbleTip: 'Tumbles great! Run Stage 1 Coarse extra cycles until all surface pits and fractures are smoothed out.'
+    checklist: 'Concentric iron-red, orange, or white fortifications; waxy quartz luster on fractured faces; translucent glow when backlit.',
+    tumbleTip: 'Run repeating Stage 1 (60/90) cycles until all surface pits and fractures are completely flush.'
   },
   {
     name: 'Banded Jasper (Jaspilite)',
-    hardness: 'Mohs 6.5–7 (Hard - Steel knife will NOT scratch)',
-    uv: 'None',
+    hardness: 'MOHS 6.5–7.0',
+    uv: 'NON-REACTIVE',
     tags: ['hard', 'banded'],
-    checklist: 'Completely opaque. Deep brick-red jasper layers alternating with dark metallic silver/black hematite bands.',
-    tumbleTip: 'Safe to tumble right alongside agates in Stage 1. Takes a rich, mirror-like metallic and red shine.'
+    checklist: 'Opaque brick-red jasper alternating with dark metallic specular hematite bands.',
+    tumbleTip: 'Safe to run alongside agates in Stage 1. Polishes to a high metallic-red mirror gloss.'
   },
   {
     name: 'Unakite',
-    hardness: 'Mohs 6–7 (Hard - Resists steel knife scratch)',
-    uv: 'None',
+    hardness: 'MOHS 6.0–7.0',
+    uv: 'NON-REACTIVE',
     tags: ['hard', 'green-pink'],
-    checklist: 'Pistachio-green epidote mixed with salmon-pink feldspar and clear/gray quartz patches. No stripes or bands.',
-    tumbleTip: 'Tumbles well with standard quartz/jasper batches. Check after Stage 1 for any softer pockets.'
+    checklist: 'Pistachio-green epidote interlocked with salmon-pink orthoclase feldspar and clear quartz.',
+    tumbleTip: 'Tumbles cleanly with mixed quartz batches. Inspect after Stage 1 for any undercut feldspar pockets.'
   },
   {
     name: 'Michigan Puddingstone',
-    hardness: 'Mohs 7 (Hard - Quartzite matrix will NOT scratch)',
-    uv: 'None',
+    hardness: 'MOHS 7.0',
+    uv: 'NON-REACTIVE',
     tags: ['hard'],
-    checklist: 'White or tan quartzite background packed with rounded red/maroon jasper, black chert, and quartz pebbles.',
-    tumbleTip: 'Very hard (Mohs 7). Takes extra time in Stage 1 Coarse to round out evenly.'
+    checklist: 'White-to-tan quartzite matrix cemented around rounded red jasper and black chert pebbles.',
+    tumbleTip: 'Extremely durable. Requires extended Stage 1 shaping to level the matrix with the jasper clasts.'
   },
   {
     name: 'Epidote & Greenstone',
-    hardness: 'Mohs 6–7 (Hard - Resists knife scratch)',
-    uv: 'None',
+    hardness: 'MOHS 6.0–7.0',
+    uv: 'NON-REACTIVE',
     tags: ['hard', 'green-pink'],
-    checklist: 'Rich olive to pistachio-green pebbles, often crisscrossed with thin white quartz veins.',
-    tumbleTip: 'Great in mixed Great Lakes beach batches. Takes a smooth satin-to-gloss polish in Stage 4.'
-  },
-  {
-    name: 'Banded Chert & Quartz',
-    hardness: 'Mohs 7 (Hard - Steel knife leaves silver streak, no scratch)',
-    uv: 'None',
-    tags: ['hard', 'banded'],
-    checklist: 'Smooth, waxy conchoidal (shell-like) fractures in cream, gray, tan, or smoky layers.',
-    tumbleTip: 'Extremely durable filler rock to cushion agates in any barrel.'
+    checklist: 'Olive to pistachio basaltic pebbles, often cross-cut by fine white quartz stringers.',
+    tumbleTip: 'Excellent companion stone for beach mixes; yields a smooth satin-to-gloss polish.'
   },
   {
     name: 'Yooperlite (Sodalite Syenite)',
-    hardness: 'Mohs 5.5–6 (Medium - Knife barely scratches with heavy force)',
-    uv: 'STRONG bright orange/yellow ember glow under 365nm UV light',
+    hardness: 'MOHS 5.5–6.0',
+    uv: '365NM ORANGE GLOW',
     tags: ['uv'],
-    checklist: 'Looks like ordinary speckled gray syenite in daylight. Under a 365nm UV flashlight at night, sodalite veins glow like burning embers.',
-    tumbleTip: 'Softer than agate! Tumble only with other Yooperlites and plenty of ceramic media.'
+    checklist: 'Mottled gray syenite in daylight; fluorescent sodalite veins glow bright ember-orange under 365nm UV.',
+    tumbleTip: 'Softer than quartz. Tumble solely with other Yooperlites and 30%+ ceramic media cushioning.'
   }
 ];
 
 // ==========================================
-// 2. INDEXEDDB LOCAL STORAGE ENGINE
+// 2. INDEXEDDB STORAGE ENGINE
 // ==========================================
 const DB_NAME = 'AgateAndGritDB';
 const DB_VERSION = 1;
@@ -136,7 +128,7 @@ async function dbDelete(storeName, id) {
 // ==========================================
 // 3. IMAGE COMPRESSOR
 // ==========================================
-function compressImageFile(file, maxWidth = 1000, quality = 0.78) {
+function compressImageFile(file, maxWidth = 1000, quality = 0.8) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = (event) => {
@@ -164,12 +156,11 @@ function compressImageFile(file, maxWidth = 1000, quality = 0.78) {
 }
 
 // ==========================================
-// 4. MIGRATION & SEEDING FOR BARRELS
+// 4. MIGRATION & STAGE HELPERS
 // ==========================================
 async function migrateAndSeedTumblers() {
   const existing = await dbGetAll('tumblerLogs');
 
-  // Automatic migration if user had "Old" or "New" from v1
   for (const log of existing) {
     if (log.unit === 'Old') {
       log.unit = 'Gritty Titty';
@@ -180,7 +171,6 @@ async function migrateAndSeedTumblers() {
     }
   }
 
-  // Seed initial barrels if database is completely empty
   if (existing.length === 0) {
     await dbPut('tumblerLogs', {
       id: 'seed-sludge-1',
@@ -208,11 +198,19 @@ function calculateDaysRunning(startDateStr) {
   const now = new Date();
   const diffMs = now - start;
   const days = Math.max(0, Math.floor(diffMs / (1000 * 60 * 60 * 24)));
-  return days === 1 ? '1 Day' : `${days} Days`;
+  return days === 1 ? 'DAY 01' : `DAY ${String(days).padStart(2, '0')}`;
+}
+
+function getStageNumber(stageStr) {
+  if (stageStr.includes('Stage 1')) return 1;
+  if (stageStr.includes('Stage 2')) return 2;
+  if (stageStr.includes('Stage 3')) return 3;
+  if (stageStr.includes('Stage 4')) return 4;
+  return 4;
 }
 
 // ==========================================
-// 5. TUMBLER DASHBOARD & TIMELINE RENDERING
+// 5. DASHBOARD & TIMELINE RENDERING
 // ==========================================
 let currentDraftPhotoBase64 = null;
 let currentTimelineFilter = 'all';
@@ -221,65 +219,108 @@ async function renderTumblersAndTimeline() {
   const logs = await dbGetAll('tumblerLogs');
   logs.sort((a, b) => b.createdAt - a.createdAt);
 
-  // 1. Render Active Barrel Cards on Page 1
   const cardsContainer = document.getElementById('tumbler-cards-container');
   cardsContainer.innerHTML = '';
 
   TUMBLER_UNITS.forEach((unitObj) => {
-    const latestForUnit = logs.find((l) => l.unit === unitObj.id);
+    const latest = logs.find((l) => l.unit === unitObj.id);
     const card = document.createElement('div');
-    card.className = 'card';
+    card.className = 'surface-card barrel-card';
 
-    if (latestForUnit) {
-      const daysText = calculateDaysRunning(latestForUnit.startDate);
-      const isStage4 = latestForUnit.stage.includes('Stage 4') && !latestForUnit.completed;
+    if (latest) {
+      const daysText = calculateDaysRunning(latest.startDate);
+      const stageNum = getStageNumber(latest.stage);
+      const isStage4Active = stageNum === 4 && !latest.completed;
+
+      const segmentsHtml = [1, 2, 3, 4].map((step) => {
+        if (step <= stageNum) {
+          return `<div class="stage-segment ${latest.completed ? 'lit-gold' : 'lit'}"></div>`;
+        }
+        return `<div class="stage-segment"></div>`;
+      }).join('');
 
       card.innerHTML = `
-        <div class="tumbler-header">
-          <span class="tumbler-name">${unitObj.name}</span>
-          <span class="days-pill">${latestForUnit.completed ? '🏆 DONE' : `⏱ ${daysText}`}</span>
+        <div class="barrel-top-row">
+          <div>
+            <h3 class="barrel-title">${unitObj.name}</h3>
+            <span class="barrel-type-tag">${unitObj.type}</span>
+          </div>
+          <span class="counter-badge ${latest.completed ? 'done' : ''}">
+            ${latest.completed ? 'COMPLETED' : daysText}
+          </span>
         </div>
-        <div class="stage-banner">${latestForUnit.stage}</div>
-        <p><strong>Date:</strong> ${latestForUnit.startDate}</p>
-        ${latestForUnit.notes ? `<p style="margin-top:6px;"><strong>Notes:</strong> ${latestForUnit.notes}</p>` : ''}
-        ${latestForUnit.photo ? `<img src="${latestForUnit.photo}" class="photo-preview" alt="Batch photo">` : ''}
-        ${isStage4 ? `
-          <button class="btn-celebrate btn-finish-stage4" data-unit="${unitObj.id}" type="button">
-            🌲 Complete Stage 4 Tumble!
+
+        <div class="stage-status-box">
+          <div class="stage-label-row">
+            <span class="stage-current-name">${latest.stage}</span>
+            <span class="stage-step-fraction">STEP ${stageNum} OF 4</span>
+          </div>
+          <div class="stage-progress-track">${segmentsHtml}</div>
+        </div>
+
+        <div class="barrel-meta-row">
+          <span>Cycle Started</span>
+          <strong style="font-family: var(--font-mono); color: var(--text-primary);">${latest.startDate}</strong>
+        </div>
+
+        ${latest.notes ? `<div class="barrel-notes">${latest.notes}</div>` : ''}
+        ${latest.photo ? `<img src="${latest.photo}" class="photo-preview" alt="Batch photo">` : ''}
+
+        <div class="barrel-actions">
+          ${isStage4Active ? `
+            <button class="btn-complete-stage4 btn-finish-stage4" data-unit="${unitObj.id}" type="button">
+              Mark Stage 4 Polish Complete
+            </button>
+          ` : ''}
+          <button class="btn-card-action btn-quick-update" data-unit="${unitObj.id}" type="button">
+            Update Stage / Add Photo
           </button>
-        ` : ''}
-        <button class="btn-secondary btn-quick-update" data-unit="${unitObj.id}" type="button">
-          🔄 Log Next Stage for ${unitObj.id}
-        </button>
+        </div>
       `;
     } else {
       card.innerHTML = `
-        <div class="tumbler-header">
-          <span class="tumbler-name">${unitObj.name}</span>
+        <div class="barrel-top-row">
+          <div>
+            <h3 class="barrel-title">${unitObj.name}</h3>
+            <span class="barrel-type-tag">${unitObj.type}</span>
+          </div>
+          <span class="counter-badge" style="opacity:0.5;">STANDBY</span>
         </div>
-        <p class="helper-text">Barrel ready for a new batch.</p>
-        <button class="btn-primary btn-quick-update" data-unit="${unitObj.id}" type="button">
-          + Start ${unitObj.id} Batch
-        </button>
+
+        <div class="stage-status-box">
+          <div class="stage-label-row">
+            <span class="stage-current-name" style="color:var(--text-secondary);">No Active Batch</span>
+            <span class="stage-step-fraction">IDLE</span>
+          </div>
+          <div class="stage-progress-track">
+            <div class="stage-segment"></div>
+            <div class="stage-segment"></div>
+            <div class="stage-segment"></div>
+            <div class="stage-segment"></div>
+          </div>
+        </div>
+
+        <div class="barrel-actions">
+          <button class="btn-primary-large btn-quick-update" data-unit="${unitObj.id}" type="button">
+            Start First Cycle
+          </button>
+        </div>
       `;
     }
+
     cardsContainer.appendChild(card);
   });
 
-  // Attach Stage Update Listeners
   document.querySelectorAll('.btn-quick-update').forEach((btn) => {
     btn.addEventListener('click', () => openLogForm(btn.getAttribute('data-unit')));
   });
 
-  // Attach Stage 4 Celebration Listeners
   document.querySelectorAll('.btn-finish-stage4').forEach((btn) => {
     btn.addEventListener('click', async () => {
-      const unitId = btn.getAttribute('data-unit');
-      await completeStage4WithCelebration(unitId);
+      await completeStage4WithCelebration(btn.getAttribute('data-unit'));
     });
   });
 
-  // 2. Render Visual Timeline on Page 2
   renderTimelineFeed(logs);
 }
 
@@ -293,22 +334,28 @@ function renderTimelineFeed(logs) {
   });
 
   if (filtered.length === 0) {
-    container.innerHTML = '<p class="helper-text">No timeline entries for this barrel yet. Log a stage with a photo to start tracking progression!</p>';
+    container.innerHTML = `
+      <div class="surface-card" style="text-align:center; color:var(--text-secondary);">
+        No logged cycles for this filter yet.
+      </div>
+    `;
     return;
   }
 
   filtered.forEach((item) => {
     const node = document.createElement('div');
-    node.className = `timeline-node ${item.completed ? 'completed-node' : ''}`;
+    node.className = `surface-card timeline-node ${item.completed ? 'completed-node' : ''}`;
     node.innerHTML = `
-      <div class="timeline-date">📅 ${item.startDate}</div>
-      <div class="timeline-unit">${item.unit}</div>
-      <div class="timeline-stage-pill">${item.stage}</div>
-      ${item.photo ? `<img src="${item.photo}" class="photo-preview" alt="Timeline progression photo">` : ''}
-      ${item.notes ? `<p style="margin-top:6px;">${item.notes}</p>` : ''}
-      <button class="btn-delete" data-id="${item.id}" type="button">Delete Entry</button>
+      <div class="timeline-meta-header">
+        <span class="timeline-date">${item.startDate}</span>
+        <button class="btn-text-danger" data-id="${item.id}" type="button">Remove</button>
+      </div>
+      <div class="timeline-barrel-title">${item.unit}</div>
+      <div class="timeline-stage-badge">${item.stage}</div>
+      ${item.photo ? `<img src="${item.photo}" class="photo-preview" alt="Timeline photo">` : ''}
+      ${item.notes ? `<div class="barrel-notes" style="margin-top:12px;">${item.notes}</div>` : ''}
     `;
-    node.querySelector('.btn-delete').addEventListener('click', async () => {
+    node.querySelector('.btn-text-danger').addEventListener('click', async () => {
       await dbDelete('tumblerLogs', item.id);
       renderTumblersAndTimeline();
     });
@@ -325,7 +372,7 @@ function openLogForm(defaultUnit = 'Gritty Titty') {
 }
 
 // ==========================================
-// 6. MICHIGAN NATURE STAGE 4 CELEBRATION
+// 6. STAGE 4 CELEBRATION
 // ==========================================
 let celebrationAnimId = null;
 
@@ -335,9 +382,9 @@ async function completeStage4WithCelebration(unitId) {
   await dbPut('tumblerLogs', {
     id: 'log-finish-' + Date.now(),
     unit: unitId,
-    stage: '🏆 Stage 4 Polish Complete!',
+    stage: 'Stage 4 — Final Polish Complete',
     startDate: todayStr,
-    notes: `Finished Stage 4 Polish in ${unitId}! Ready for display.`,
+    notes: `Completed Stage 4 final polish in ${unitId}.`,
     photo: null,
     completed: true,
     createdAt: Date.now()
@@ -349,7 +396,7 @@ async function completeStage4WithCelebration(unitId) {
 
 function triggerMichiganCelebrationModal(unitId) {
   const modal = document.getElementById('celebration-modal');
-  document.getElementById('celebration-title').textContent = `${unitId} Polish Complete!`;
+  document.getElementById('celebration-title').textContent = `${unitId} — Polish Complete`;
   modal.classList.remove('hidden');
 
   const canvas = document.getElementById('celebration-canvas');
@@ -357,14 +404,13 @@ function triggerMichiganCelebrationModal(unitId) {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  // Create Michigan nature particles (Agate sparks, copper embers, pine needles, lake drops)
-  const colors = ['#ff6b2b', '#ffb703', '#2d6a4f', '#457b9d', '#d4885c', '#7ef7ae'];
-  const particles = Array.from({ length: 75 }, () => ({
+  const colors = ['#ff6224', '#f5b73b', '#10b981', '#e09f67', '#38bdf8'];
+  const particles = Array.from({ length: 65 }, () => ({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height - canvas.height,
-    size: Math.random() * 7 + 4,
-    speedY: Math.random() * 3 + 2,
-    speedX: (Math.random() - 0.5) * 2,
+    size: Math.random() * 6 + 3,
+    speedY: Math.random() * 2.5 + 1.5,
+    speedX: (Math.random() - 0.5) * 1.5,
     color: colors[Math.floor(Math.random() * colors.length)],
     angle: Math.random() * Math.PI * 2
   }));
@@ -374,14 +420,14 @@ function triggerMichiganCelebrationModal(unitId) {
     particles.forEach((p) => {
       p.y += p.speedY;
       p.x += p.speedX;
-      p.angle += 0.05;
+      p.angle += 0.04;
       if (p.y > canvas.height) p.y = -10;
 
       ctx.save();
       ctx.translate(p.x, p.y);
       ctx.rotate(p.angle);
       ctx.fillStyle = p.color;
-      ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 1.4);
+      ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 1.5);
       ctx.restore();
     });
     celebrationAnimId = requestAnimationFrame(animateParticles);
@@ -390,7 +436,7 @@ function triggerMichiganCelebrationModal(unitId) {
 }
 
 // ==========================================
-// 7. BUILT-IN ROCK SCANNER (ZERO API KEYS)
+// 7. ON-DEVICE SPECIMEN SCANNER
 // ==========================================
 let currentScannerPhotoBase64 = null;
 
@@ -427,44 +473,47 @@ function analyzeImageColorsAndTraits(base64DataUrl, selectedTraits, notes) {
       const greenRatio = greenCount / total;
       const lightRatio = lightCount / total;
 
-      let primaryMatch = 'Lake Superior Agate or Banded Jasper';
-      let confidence = 'High';
+      let primaryMatch = 'Lake Superior Agate / Banded Jasper';
+      let confidence = 'HIGH CONFIDENCE';
       let details = '';
-      let tumbleVerdict = 'Safe for Stage 1 Coarse with hard quartz, agates, and jaspers.';
+      let tumbleVerdict = 'Mohs 7.0 — Safe for Stage 1 Coarse alongside quartz and jasper.';
 
       if (selectedTraits.includes('uv')) {
         primaryMatch = 'Yooperlite (Fluorescent Sodalite Syenite)';
-        details = 'Bright orange/ember UV fluorescence is the unmistakable signature of Yooperlite.';
-        tumbleVerdict = 'Mohs 5.5–6: Tumble gently in a separate batch with extra ceramic media.';
+        details = '365nm UV orange fluorescence confirms sodalite-bearing syenite.';
+        tumbleVerdict = 'Mohs 5.5–6.0 — Tumble in a dedicated batch with extra ceramic cushioning.';
       } else if (selectedTraits.includes('pebbles') || (lightRatio > 0.25 && redRatio > 0.08)) {
         primaryMatch = 'Michigan Puddingstone (Jasper Conglomerate)';
-        details = 'Light quartzite matrix detected alongside iron-red/maroon jasper clasts.';
-        tumbleVerdict = 'Mohs 7: Very hard! Run extra cycles in Stage 1 Coarse until pebbles sit flush.';
+        details = 'Light quartzite matrix detected with contrasting iron-rich jasper clasts.';
+        tumbleVerdict = 'Mohs 7.0 — Durable conglomerate. Run extended Stage 1 cycles until flush.';
       } else if (greenRatio > 0.12) {
-        primaryMatch = 'Unakite or Epidote Greenstone';
-        details = 'Strong pistachio/olive-green mineral tones detected in the stone.';
-        tumbleVerdict = 'Mohs 6–7: Tumbles great in mixed Great Lakes beach batches.';
+        primaryMatch = 'Unakite / Epidote Greenstone';
+        details = 'Dominant epidote-green mineral signature detected across the specimen.',
+        tumbleVerdict = 'Mohs 6.0–7.0 — Compatible with standard Great Lakes mixed beach batches.';
       } else if (selectedTraits.includes('banded') && selectedTraits.includes('translucent')) {
         primaryMatch = 'Lake Superior Agate';
-        details = 'Iron-stained banding combined with flashlight translucency confirms chalcedony/agate.';
-        tumbleVerdict = 'Mohs 7: Ideal tumbler stone. Keep in Stage 1 until all surface pits disappear.';
+        details = 'Concentric banding paired with light translucency confirms banded chalcedony.';
+        tumbleVerdict = 'Mohs 7.0 — Repeat Stage 1 Coarse until all surface husks and fractures clear.';
       } else if (selectedTraits.includes('banded') || redRatio > 0.18) {
-        primaryMatch = 'Banded Jasper (Jaspilite) or Lake Superior Agate';
-        details = 'Rich iron-oxide red/orange tones detected. Hold a bright phone flashlight pressed against the edge: if light passes through, it is Agate; if completely solid/opaque, it is Jasper.';
-        tumbleVerdict = 'Mohs 7: Both Agate and Jasper tumble together smoothly in Stage 1.';
+        primaryMatch = 'Banded Jasper (Jaspilite) or Agate';
+        details = 'Strong iron-oxide red/amber palette detected. Backlight the edge with an LED to separate translucent Agate from opaque Jasper.';
+        tumbleVerdict = 'Mohs 7.0 — Both varieties can be tumbled together in Stage 1.';
       } else {
         primaryMatch = 'Great Lakes Chert, Quartzite, or Basalt';
-        confidence = 'Moderate';
-        details = `Neutral mineral palette (${Math.round(darkCount / total * 100)}% dark tones, ${Math.round(lightRatio * 100)}% light quartz tones). Test with the tip of a steel pocket knife: if the steel leaves a silver metallic line without digging in, it is Mohs 7 Quartz/Chert.`;
+        confidence = 'MODERATE CONFIDENCE';
+        details = `Mineral balance: ${Math.round(darkCount / total * 100)}% dark matrix, ${Math.round(lightRatio * 100)}% light silica. Confirm hardness with a steel knife tip (Mohs 5.5).`;
       }
 
       const summary = [
-        `🪨 MOST LIKELY MATCH: ${primaryMatch} (${confidence} Match)`,
+        `IDENTIFICATION: ${primaryMatch}`,
+        `STATUS: ${confidence}`,
         ``,
-        `🔍 ANALYSIS: ${details}`,
-        notes ? `📍 FIELD NOTES: ${notes}` : null,
+        `OPTICAL & TRAIT NOTES:`,
+        `${details}`,
+        notes ? `\nFIELD LOG: ${notes}` : null,
         ``,
-        `⚙️ TUMBLER VERDICT: ${tumbleVerdict}`
+        `WORKSHOP PROTOCOL:`,
+        `${tumbleVerdict}`
       ].filter(Boolean).join('\n');
 
       resolve(summary);
@@ -482,24 +531,27 @@ async function renderScannerQueue() {
   list.innerHTML = '';
 
   if (items.length === 0) {
-    list.innerHTML = '<p class="helper-text">No saved field finds yet.</p>';
+    list.innerHTML = `
+      <div class="surface-card" style="text-align:center; color:var(--text-secondary);">
+        No specimens saved in your field log yet.
+      </div>
+    `;
     return;
   }
 
   items.forEach((item) => {
     const card = document.createElement('div');
-    card.className = 'card';
+    card.className = 'surface-card';
     card.innerHTML = `
-      <div class="tumbler-header">
-        <strong>Field Find (${item.dateStr})</strong>
-        <span class="badge online">SAVED LOCAL</span>
+      <div class="timeline-meta-header">
+        <span class="timeline-date">LOGGED ${item.dateStr}</span>
+        <button class="btn-text-danger" type="button">Remove</button>
       </div>
-      <img src="${item.photo}" class="photo-preview" alt="Field find">
-      ${item.notes ? `<p><strong>Field Notes:</strong> ${item.notes}</p>` : ''}
-      ${item.aiResult ? `<div class="ai-result">${item.aiResult}</div>` : ''}
-      <button class="btn-delete" type="button">Delete Find</button>
+      <img src="${item.photo}" class="photo-preview" alt="Specimen">
+      ${item.notes ? `<div class="barrel-notes" style="margin-top:12px;">${item.notes}</div>` : ''}
+      ${item.aiResult ? `<div class="analysis-report">${item.aiResult}</div>` : ''}
     `;
-    card.querySelector('.btn-delete').addEventListener('click', async () => {
+    card.querySelector('.btn-text-danger').addEventListener('click', async () => {
       await dbDelete('scannerQueue', item.id);
       renderScannerQueue();
     });
@@ -521,31 +573,28 @@ function renderFieldGuide(activeFilter = 'all') {
 
   filtered.forEach((rock) => {
     const card = document.createElement('div');
-    card.className = 'card';
+    card.className = 'surface-card';
     card.innerHTML = `
-      <h3 style="color: var(--accent-agate); font-size: 1.3rem;">${rock.name}</h3>
-      <div class="rock-badge-row">
-        <span class="trait-tag">🔨 ${rock.hardness}</span>
-        <span class="trait-tag">🔦 UV: ${rock.uv}</span>
+      <h3 class="barrel-title">${rock.name}</h3>
+      <div class="spec-row">
+        <span class="spec-pill">${rock.hardness}</span>
+        <span class="spec-pill">${rock.uv}</span>
       </div>
-      <p><strong>What to Look For:</strong> ${rock.checklist}</p>
-      <div class="tumble-tip">
-        <strong>⚙️ Tumbling Tip:</strong> ${rock.tumbleTip}
-      </div>
+      <p style="color:var(--text-secondary); font-size:0.92rem; margin-bottom:12px;">${rock.checklist}</p>
+      <div class="barrel-notes">${rock.tumbleTip}</div>
     `;
     container.appendChild(card);
   });
 }
 
 // ==========================================
-// 9. APP INITIALIZATION & EVENT LISTENERS
+// 9. INITIALIZATION & EVENT LISTENERS
 // ==========================================
 document.addEventListener('DOMContentLoaded', async () => {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js').catch(() => {});
   }
 
-  // Populate Barrel Select Dropdown
   const unitSelect = document.getElementById('log-unit');
   TUMBLER_UNITS.forEach((u) => {
     const opt = document.createElement('option');
@@ -559,10 +608,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderFieldGuide('all');
   await renderScannerQueue();
 
-  // Bottom Navigation Switching
-  document.querySelectorAll('.nav-btn').forEach((btn) => {
+  // Bottom Dock Navigation
+  document.querySelectorAll('.dock-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.nav-btn').forEach((b) => b.classList.remove('active'));
+      document.querySelectorAll('.dock-btn').forEach((b) => b.classList.remove('active'));
       document.querySelectorAll('.view').forEach((v) => v.classList.remove('active'));
       btn.classList.add('active');
       document.getElementById(btn.getAttribute('data-target')).classList.add('active');
@@ -570,13 +619,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
-  // Tumbler Log Form Open / Close
+  // Log Form Controls
   document.getElementById('btn-open-log-form').addEventListener('click', () => openLogForm('Gritty Titty'));
   document.getElementById('btn-cancel-log').addEventListener('click', () => {
     document.getElementById('form-tumbler-log').classList.add('hidden');
   });
 
-  // Handle BOTH Upload Photo and Take Photo inputs for Tumbler Log
   async function handleLogPhotoSelect(e) {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -588,16 +636,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('log-photo-upload').addEventListener('change', handleLogPhotoSelect);
   document.getElementById('log-photo-camera').addEventListener('change', handleLogPhotoSelect);
 
-  // Submit Tumbler Log
   document.getElementById('form-tumbler-log').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const unitVal = document.getElementById('log-unit').value;
-    const stageVal = document.getElementById('log-stage').value;
-
     const newEntry = {
       id: 'log-' + Date.now(),
-      unit: unitVal,
-      stage: stageVal,
+      unit: document.getElementById('log-unit').value,
+      stage: document.getElementById('log-stage').value,
       startDate: document.getElementById('log-date').value,
       notes: document.getElementById('log-notes').value.trim(),
       photo: currentDraftPhotoBase64,
@@ -613,34 +657,34 @@ document.addEventListener('DOMContentLoaded', async () => {
     await renderTumblersAndTimeline();
   });
 
-  // Timeline Barrel Filters
-  document.querySelectorAll('#timeline-filters .filter-pill').forEach((pill) => {
-    pill.addEventListener('click', async () => {
-      document.querySelectorAll('#timeline-filters .filter-pill').forEach((p) => p.classList.remove('active'));
-      pill.classList.add('active');
-      currentTimelineFilter = pill.getAttribute('data-unit');
+  // Timeline Filter Chips
+  document.querySelectorAll('#timeline-filters .chip').forEach((chip) => {
+    chip.addEventListener('click', async () => {
+      document.querySelectorAll('#timeline-filters .chip').forEach((c) => c.classList.remove('active'));
+      chip.classList.add('active');
+      currentTimelineFilter = chip.getAttribute('data-unit');
       const logs = await dbGetAll('tumblerLogs');
       logs.sort((a, b) => b.createdAt - a.createdAt);
       renderTimelineFeed(logs);
     });
   });
 
-  // Close Celebration Modal
+  // Close Celebration Dialog
   document.getElementById('btn-close-celebration').addEventListener('click', () => {
     document.getElementById('celebration-modal').classList.add('hidden');
     if (celebrationAnimId) cancelAnimationFrame(celebrationAnimId);
   });
 
-  // Field Guide Filter Pills
-  document.querySelectorAll('#guide-filters .filter-pill').forEach((pill) => {
-    pill.addEventListener('click', () => {
-      document.querySelectorAll('#guide-filters .filter-pill').forEach((p) => p.classList.remove('active'));
-      pill.classList.add('active');
-      renderFieldGuide(pill.getAttribute('data-filter'));
+  // Field Guide Filter Chips
+  document.querySelectorAll('#guide-filters .chip').forEach((chip) => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('#guide-filters .chip').forEach((c) => c.classList.remove('active'));
+      chip.classList.add('active');
+      renderFieldGuide(chip.getAttribute('data-filter'));
     });
   });
 
-  // Scanner Upload & Camera Inputs
+  // Scanner Photo Inputs
   async function handleScannerPhotoSelect(e) {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -656,12 +700,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('scanner-upload-input').addEventListener('change', handleScannerPhotoSelect);
   document.getElementById('scanner-camera-input').addEventListener('change', handleScannerPhotoSelect);
 
-  // Scanner Trait Toggles
   document.querySelectorAll('.trait-toggle').forEach((btn) => {
     btn.addEventListener('click', () => btn.classList.toggle('active'));
   });
 
-  // Run Instant Built-In Rock ID
   document.getElementById('btn-analyze-now').addEventListener('click', async () => {
     if (!currentScannerPhotoBase64) return;
     const notes = document.getElementById('scanner-notes').value.trim();
@@ -675,7 +717,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     resultBox.classList.remove('hidden');
   });
 
-  // Save Scanner Find to Local Queue
   document.getElementById('btn-save-queue').addEventListener('click', async () => {
     if (!currentScannerPhotoBase64) return;
     const notes = document.getElementById('scanner-notes').value.trim();
@@ -702,7 +743,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await renderScannerQueue();
   });
 
-  // Backup Export & Import
+  // Backup Export & Restore
   document.getElementById('btn-export').addEventListener('click', async () => {
     const tumblerLogs = await dbGetAll('tumblerLogs');
     const scannerQueue = await dbGetAll('scannerQueue');
@@ -731,7 +772,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         await migrateAndSeedTumblers();
         await renderTumblersAndTimeline();
         await renderScannerQueue();
-        alert('Backup restored!');
+        alert('Backup restored.');
       } catch (err) {
         alert('Invalid backup file.');
       }
