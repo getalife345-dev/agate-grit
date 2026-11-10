@@ -1,15 +1,15 @@
 {
-  "name": "Agate & Grit Rock Tracker",
+  "name": "Agate & Grit",
   "short_name": "Agate & Grit",
-  "description": "Offline Rock Tumbling Tracker and Great Lakes Field Identifier",
+  "description": "Workshop Rock Tumbling Tracker & Great Lakes Field Guide",
   "start_url": "./index.html",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0b0e11",
-  "theme_color": "#121619",
+  "background_color": "#090b10",
+  "theme_color": "#090b10",
   "icons": [
     {
-      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%23161c22'/%3E%3Cpolygon points='256,72 420,190 360,420 152,420 92,190' fill='%23ff6b2b' stroke='%23d4885c' stroke-width='20'/%3E%3Cpolygon points='256,130 360,210 320,360 192,360 152,210' fill='%239c5a3c'/%3E%3Ccircle cx='256' cy='256' r='48' fill='%23f5f7fa'/%3E%3C/svg%3E",
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%23090b10'/%3E%3Crect x='24' y='24' width='464' height='464' rx='92' fill='%2312161f' stroke='%23e09f67' stroke-opacity='0.35' stroke-width='8'/%3E%3Cpolygon points='256,88 408,176 408,336 256,424 104,336 104,176' fill='none' stroke='%23ff6224' stroke-width='28' stroke-linejoin='round'/%3E%3Cpolygon points='256,164 340,212 340,300 256,348 172,300 172,212' fill='%23ff6224' fill-opacity='0.25' stroke='%23e09f67' stroke-width='16' stroke-linejoin='round'/%3E%3C/svg%3E",
       "sizes": "192x192 512x512",
       "type": "image/svg+xml",
       "purpose": "any maskable"
