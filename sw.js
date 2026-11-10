@@ -1,4 +1,4 @@
-const CACHE_NAME = 'agate-grit-v2';
+const CACHE_NAME = 'agate-grit-v3';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
