@@ -3,222 +3,359 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#121619">
-  <meta name="description" content="Offline Rock Tumbling Tracker and Great Lakes Rock Identifier">
-  <title>Agate & Grit | Rock Tracker</title>
+  <meta name="theme-color" content="#090b10">
+  <meta name="description" content="Agate & Grit — Workshop Tumbler Tracker & Great Lakes Field Guide">
+  <title>Agate &amp; Grit</title>
   <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- TOP HEADER -->
+  <!-- TOP APP BAR -->
   <header class="app-header">
-    <div class="header-top">
-      <h1>AGATE &amp; GRIT</h1>
-      <span id="network-badge" class="badge offline">100% LOCAL</span>
-    </div>
-    <div class="backup-bar">
-      <button id="btn-export" class="btn-small" type="button">⬇ Save Backup</button>
-      <label for="file-import" class="btn-small">⬆ Load Backup</label>
-      <input type="file" id="file-import" accept=".json" hidden>
+    <div class="header-inner">
+      <div class="brand-group">
+        <div class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon>
+            <polygon points="12 7 17 10.2 17 13.8 12 17 7 13.8 7 10.2 12 7"></polygon>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">AGATE &amp; GRIT</h1>
+          <span class="brand-subtitle">WORKSHOP &amp; FIELD LOG</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="btn-export" class="icon-pill-btn" type="button" title="Export Backup">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Backup</span>
+        </button>
+        <label for="file-import" class="icon-pill-btn" title="Restore Backup">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          <span>Restore</span>
+        </label>
+        <input type="file" id="file-import" accept=".json" hidden>
+      </div>
     </div>
   </header>
 
-  <!-- MAIN CONTENT AREA -->
+  <!-- MAIN WORKSPACE -->
   <main class="app-content">
 
-    <!-- PAGE 1: TUMBLER DASHBOARD -->
+    <!-- VIEW 1: ACTIVE BARRELS DASHBOARD -->
     <section id="view-tumblers" class="view active">
-      <div class="section-title-row">
-        <h2>Active Barrels</h2>
-        <button id="btn-open-log-form" class="btn-primary-inline" type="button">+ Log Stage</button>
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">WORKSHOP STATUS</span>
+          <h2>Active Barrels</h2>
+        </div>
+        <button id="btn-open-log-form" class="btn-accent-compact" type="button">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span>Log Stage</span>
+        </button>
       </div>
 
-      <!-- Log Cycle Form (Toggles open/closed) -->
-      <form id="form-tumbler-log" class="card form-card hidden">
-        <h3 id="form-title">Log Tumbler Stage</h3>
-
-        <label class="field-label" for="log-unit">Select Barrel</label>
-        <select id="log-unit" class="big-input" required></select>
-
-        <label class="field-label" for="log-stage">Grit Stage</label>
-        <select id="log-stage" class="big-input" required>
-          <option value="Stage 1: Coarse (60/90)">Stage 1: Coarse (60/90)</option>
-          <option value="Stage 2: Medium (120/220)">Stage 2: Medium (120/220)</option>
-          <option value="Stage 3: Pre-Polish (500)">Stage 3: Pre-Polish (500)</option>
-          <option value="Stage 4: Polish">Stage 4: Polish</option>
-        </select>
-
-        <label class="field-label" for="log-date">Start Date</label>
-        <input type="date" id="log-date" class="big-input" required>
-
-        <label class="field-label" for="log-notes">Batch Notes (Rocks, Ceramic Media, Lessons)</label>
-        <textarea id="log-notes" class="big-input" rows="3" placeholder="e.g., Lake Superior agates & jasper, added ceramic media..."></textarea>
-
-        <label class="field-label">Batch Photo (Take New or Upload Existing)</label>
-        <div class="photo-btn-grid">
-          <label for="log-photo-upload" class="btn-camera">
-            🖼️ Upload Photo
-          </label>
-          <label for="log-photo-camera" class="btn-camera">
-            📷 Take Photo
-          </label>
+      <!-- LOG STAGE DRAWER / FORM CARD -->
+      <form id="form-tumbler-log" class="surface-card form-card hidden">
+        <div class="card-header-row">
+          <h3>Log Barrel Stage</h3>
+          <button type="button" id="btn-cancel-log" class="btn-icon-close" aria-label="Close">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
         </div>
-        <!-- Separate inputs so Android lets you pick from gallery OR open camera -->
-        <input type="file" id="log-photo-upload" accept="image/*" hidden>
-        <input type="file" id="log-photo-camera" accept="image/*" capture="environment" hidden>
 
-        <img id="log-photo-preview" class="photo-preview hidden" alt="Batch preview">
-
-        <div class="form-actions">
-          <button type="submit" class="btn-primary">Save to Timeline</button>
-          <button type="button" id="btn-cancel-log" class="btn-secondary">Cancel</button>
+        <div class="form-group">
+          <label class="field-label" for="log-unit">Barrel Unit</label>
+          <div class="select-wrapper">
+            <select id="log-unit" class="pro-input" required></select>
+          </div>
         </div>
+
+        <div class="form-group">
+          <label class="field-label" for="log-stage">Grit Stage</label>
+          <div class="select-wrapper">
+            <select id="log-stage" class="pro-input" required>
+              <option value="Stage 1: Coarse (60/90)">Stage 1 — Coarse (60/90)</option>
+              <option value="Stage 2: Medium (120/220)">Stage 2 — Medium (120/220)</option>
+              <option value="Stage 3: Pre-Polish (500)">Stage 3 — Pre-Polish (500 AO)</option>
+              <option value="Stage 4: Polish">Stage 4 — Final Polish</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label" for="log-date">Cycle Start Date</label>
+          <input type="date" id="log-date" class="pro-input" required>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label" for="log-notes">Batch Notes</label>
+          <textarea id="log-notes" class="pro-input" rows="3" placeholder="Stone mix, ceramic media ratio, grit tablespoons..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <span class="field-label">Batch Progression Photo</span>
+          <div class="media-action-grid">
+            <label for="log-photo-upload" class="btn-media-picker">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21 15 16 10 5 21"></polyline>
+              </svg>
+              <span>Choose Photo</span>
+            </label>
+            <label for="log-photo-camera" class="btn-media-picker">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                <circle cx="12" cy="13" r="4"></circle>
+              </svg>
+              <span>Camera</span>
+            </label>
+          </div>
+          <input type="file" id="log-photo-upload" accept="image/*" hidden>
+          <input type="file" id="log-photo-camera" accept="image/*" capture="environment" hidden>
+          <img id="log-photo-preview" class="photo-preview hidden" alt="Batch preview">
+        </div>
+
+        <button type="submit" class="btn-primary-large">Save Stage to Timeline</button>
       </form>
 
-      <!-- Active Status Cards for Gritty Titty, Sludge Slut, DP1, DP2 -->
-      <div id="tumbler-cards-container" class="cards-grid"></div>
+      <!-- ACTIVE BARRELS GRID -->
+      <div id="tumbler-cards-container" class="barrel-grid"></div>
     </section>
 
-    <!-- PAGE 2: DEDICATED VISUAL TIMELINE -->
+    <!-- VIEW 2: PROGRESSION TIMELINE -->
     <section id="view-timeline" class="view">
-      <h2>Batch Progression Timeline</h2>
-      <p class="helper-text">Tap a barrel below to filter its stage-by-stage photo progression.</p>
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">BATCH ARCHIVE</span>
+          <h2>Progression Timeline</h2>
+        </div>
+      </div>
 
-      <div class="filter-bar" id="timeline-filters">
-        <button class="filter-pill active" data-unit="all" type="button">All Barrels</button>
-        <button class="filter-pill" data-unit="Gritty Titty" type="button">Gritty Titty</button>
-        <button class="filter-pill" data-unit="Sludge Slut" type="button">Sludge Slut</button>
-        <button class="filter-pill" data-unit="The DP (DP1)" type="button">DP1</button>
-        <button class="filter-pill" data-unit="The DP (DP2)" type="button">DP2</button>
+      <div class="chip-scroll-bar" id="timeline-filters">
+        <button class="chip active" data-unit="all" type="button">All Barrels</button>
+        <button class="chip" data-unit="Gritty Titty" type="button">Gritty Titty</button>
+        <button class="chip" data-unit="Sludge Slut" type="button">Sludge Slut</button>
+        <button class="chip" data-unit="The Grit-toris" type="button">The Grit-toris</button>
+        <button class="chip" data-unit="The DP (DP1)" type="button">DP1</button>
+        <button class="chip" data-unit="The DP (DP2)" type="button">DP2</button>
       </div>
 
       <div id="timeline-container" class="timeline-feed"></div>
     </section>
 
-    <!-- PAGE 3: OFFLINE GREAT LAKES FIELD GUIDE -->
+    <!-- VIEW 3: GREAT LAKES FIELD GUIDE -->
     <section id="view-guide" class="view">
-      <h2>Great Lakes Field Guide</h2>
-      <p class="helper-text">Tap a trait below to filter rocks on the shoreline.</p>
-
-      <div class="filter-bar" id="guide-filters">
-        <button class="filter-pill active" data-filter="all" type="button">All Rocks</button>
-        <button class="filter-pill" data-filter="hard" type="button">Hard (No Knife Scratch)</button>
-        <button class="filter-pill" data-filter="banded" type="button">Banded / Striped</button>
-        <button class="filter-pill" data-filter="green-pink" type="button">Green / Pink</button>
-        <button class="filter-pill" data-filter="uv" type="button">UV Glow</button>
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">SHORELINE REFERENCE</span>
+          <h2>Great Lakes Field Guide</h2>
+        </div>
       </div>
 
-      <div class="card test-cheat-sheet">
-        <h3>⚡ Pocket Scratch &amp; Field Check</h3>
-        <ul>
-          <li><strong>Pocket Knife / Steel Nail (Mohs ~5.5):</strong> Won't scratch Agate, Jasper, Chert, or Quartzite (Mohs 7).</li>
-          <li><strong>Water Test:</strong> Wet the stone! Agate banding and Unakite colors pop immediately when wet.</li>
-          <li><strong>365nm UV Light:</strong> Best wavelength for spotting glowing orange Yooperlite veins.</li>
-        </ul>
+      <div class="chip-scroll-bar" id="guide-filters">
+        <button class="chip active" data-filter="all" type="button">All Stones</button>
+        <button class="chip" data-filter="hard" type="button">Mohs 6–7 (Hard)</button>
+        <button class="chip" data-filter="banded" type="button">Banded</button>
+        <button class="chip" data-filter="green-pink" type="button">Green / Pink</button>
+        <button class="chip" data-filter="uv" type="button">365nm UV</button>
       </div>
 
-      <div id="guide-cards-container" class="cards-list"></div>
+      <div class="surface-card reference-banner">
+        <div class="reference-title">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <span>Shoreline Triage Protocol</span>
+        </div>
+        <div class="reference-grid">
+          <div class="ref-item">
+            <span class="ref-label">STEEL KNIFE (MOHS 5.5)</span>
+            <p>Will not scratch Agate, Jasper, Chert, or Quartzite. Leaves a faint metallic silver line instead.</p>
+          </div>
+          <div class="ref-item">
+            <span class="ref-label">TRANSLUCENCY CHECK</span>
+            <p>Press your phone LED flush against the stone edge. Agate glows internally; Jasper blocks light.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="guide-cards-container" class="guide-grid"></div>
     </section>
 
-    <!-- PAGE 4: BUILT-IN ROCK SCANNER (NO API KEY NEEDED) -->
+    <!-- VIEW 4: ON-DEVICE ROCK SCANNER -->
     <section id="view-scanner" class="view">
-      <h2>Built-In Rock Scanner</h2>
-      <p class="helper-text">No API keys or setup needed. Snap or upload a rock photo to analyze its colors and physical traits right on your phone.</p>
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">OPTICAL &amp; TRAIT TRIAGE</span>
+          <h2>Field Specimen Scanner</h2>
+        </div>
+      </div>
 
-      <div class="card scanner-card">
-        <div class="photo-btn-grid">
-          <label for="scanner-upload-input" class="btn-camera-giant">
-            🖼️ UPLOAD PHOTO
+      <div class="surface-card scanner-card">
+        <div class="media-action-grid">
+          <label for="scanner-upload-input" class="btn-scanner-capture">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <circle cx="8.5" cy="8.5" r="1.5"></circle>
+              <polyline points="21 15 16 10 5 21"></polyline>
+            </svg>
+            <span>Upload Specimen</span>
           </label>
-          <label for="scanner-camera-input" class="btn-camera-giant">
-            📸 TAKE PHOTO
+          <label for="scanner-camera-input" class="btn-scanner-capture primary-capture">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+              <circle cx="12" cy="13" r="4"></circle>
+            </svg>
+            <span>Capture Photo</span>
           </label>
         </div>
+
         <input type="file" id="scanner-upload-input" accept="image/*" hidden>
         <input type="file" id="scanner-camera-input" accept="image/*" capture="environment" hidden>
 
         <canvas id="color-analysis-canvas" hidden></canvas>
-        <img id="scanner-preview" class="photo-preview hidden" alt="Scanned rock">
+        <img id="scanner-preview" class="photo-preview hidden" alt="Specimen preview">
 
-        <!-- Quick Trait Toggles for Instant Built-in ID -->
         <div id="scanner-trait-box" class="trait-box hidden">
-          <label class="field-label">Quick Trait Check (Optional):</label>
-          <div class="filter-bar">
-            <button type="button" class="trait-toggle" data-trait="banded">Has Bands/Stripes</button>
-            <button type="button" class="trait-toggle" data-trait="translucent">Glows with Flashlight</button>
-            <button type="button" class="trait-toggle" data-trait="pebbles">Has Pebbles Inside</button>
-            <button type="button" class="trait-toggle" data-trait="uv">Glows Orange under UV</button>
+          <span class="field-label">Observed Physical Traits (Select Any)</span>
+          <div class="chip-wrap">
+            <button type="button" class="chip trait-toggle" data-trait="banded">Concentric Bands</button>
+            <button type="button" class="chip trait-toggle" data-trait="translucent">Light Translucent</button>
+            <button type="button" class="chip trait-toggle" data-trait="pebbles">Embedded Clasts</button>
+            <button type="button" class="chip trait-toggle" data-trait="uv">365nm UV Reactive</button>
           </div>
         </div>
 
-        <label class="field-label" for="scanner-notes">Field Notes / Beach Location (Optional)</label>
-        <input type="text" id="scanner-notes" class="big-input" placeholder="e.g., Found wet at Two Hearted River, super hard">
-
-        <div class="scanner-actions">
-          <button id="btn-analyze-now" class="btn-primary" type="button" disabled>🔍 Run Instant Rock ID</button>
-          <button id="btn-save-queue" class="btn-secondary" type="button" disabled>📥 Save to Field Log</button>
+        <div class="form-group" style="margin-top: 14px;">
+          <label class="field-label" for="scanner-notes">Location &amp; Field Notes</label>
+          <input type="text" id="scanner-notes" class="pro-input" placeholder="e.g., Lake Superior shoreline, wet cobble line...">
         </div>
 
-        <div id="ai-result-box" class="ai-result hidden"></div>
+        <div class="scanner-action-row">
+          <button id="btn-analyze-now" class="btn-primary-large" type="button" disabled>Analyze Specimen</button>
+          <button id="btn-save-queue" class="btn-secondary-large" type="button" disabled>Save to Log</button>
+        </div>
+
+        <div id="ai-result-box" class="analysis-report hidden"></div>
       </div>
 
-      <h2 class="sub-heading">Saved Field Finds (<span id="queue-count">0</span>)</h2>
-      <div id="scanner-queue-list" class="history-list"></div>
+      <div class="section-header" style="margin-top: 28px;">
+        <div>
+          <span class="eyebrow">SAVED SPECIMENS</span>
+          <h2>Field Log (<span id="queue-count">0</span>)</h2>
+        </div>
+      </div>
+      <div id="scanner-queue-list" class="barrel-grid"></div>
     </section>
 
   </main>
 
-  <!-- MICHIGAN NATURE STAGE 4 CELEBRATION MODAL -->
+  <!-- MICHIGAN NORTHWOODS STAGE 4 COMPLETION MODAL -->
   <div id="celebration-modal" class="celebration-overlay hidden">
     <canvas id="celebration-canvas"></canvas>
-    <div class="celebration-card">
-      <!-- Custom Great Lakes & Northwoods SVG Scene -->
-      <svg class="michigan-svg" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg">
-        <!-- Night Sky & Northern Glow -->
-        <rect width="300" height="160" rx="14" fill="#0d1b2a"/>
-        <circle cx="240" cy="40" r="22" fill="#ffb703" opacity="0.9"/>
-        <!-- glowing agate sun rays -->
-        <circle cx="240" cy="40" r="34" fill="#ff6b2b" opacity="0.3"/>
-        <!-- Northwoods Pine Trees -->
-        <polygon points="35,35 10,115 60,115" fill="#1b4332"/>
-        <polygon points="35,20 15,80 55,80" fill="#2d6a4f"/>
-        <polygon points="75,45 50,120 100,120" fill="#1b4332"/>
-        <polygon points="115,30 85,118 145,118" fill="#2d6a4f"/>
-        <polygon points="155,50 130,120 180,120" fill="#1b4332"/>
-        <!-- Lake Superior Waves -->
-        <path d="M0,115 Q35,105 75,115 T150,115 T225,115 T300,115 L300,160 L0,160 Z" fill="#1d3557"/>
-        <path d="M0,132 Q45,122 90,132 T180,132 T270,132 T300,132 L300,160 L0,160 Z" fill="#457b9d"/>
-        <!-- Glowing Polished Lake Superior Agate in Center -->
-        <polygon points="150,65 182,85 170,122 130,122 118,85" fill="#ff6b2b" stroke="#ffd166" stroke-width="3"/>
-        <polygon points="150,76 170,90 162,112 138,112 130,90" fill="#9c5a3c" stroke="#ffb703" stroke-width="2"/>
-        <circle cx="143" cy="86" r="4" fill="#ffffff"/>
-      </svg>
-
-      <div class="celebration-tag">🌲 PURE MICHIGAN POLISH COMPLETE 🌊</div>
-      <h2 id="celebration-title">Stage 4 Masterpiece!</h2>
-      <p id="celebration-text">Lake Superior glass shine unlocked! Your completed polish has been stamped onto your Timeline.</p>
-      <button id="btn-close-celebration" class="btn-primary" type="button">🪨 Hell Yeah — Back to Barrels</button>
+    <div class="celebration-dialog">
+      <div class="celebration-art-frame">
+        <svg class="northwoods-art" viewBox="0 0 360 180" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#070B12"/>
+              <stop offset="60%" stop-color="#102536"/>
+              <stop offset="100%" stop-color="#1E3F52"/>
+            </linearGradient>
+            <linearGradient id="auroraGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#10B981" stop-opacity="0"/>
+              <stop offset="50%" stop-color="#10B981" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#F5B73B" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="agateGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#FF7A45"/>
+              <stop offset="50%" stop-color="#D94E1F"/>
+              <stop offset="100%" stop-color="#7C2D12"/>
+            </linearGradient>
+          </defs>
+          <rect width="360" height="180" fill="url(#skyGrad)"/>
+          <path d="M0,45 Q90,10 180,45 T360,35 L360,95 L0,95 Z" fill="url(#auroraGrad)"/>
+          <!-- Distant Pine Ridge -->
+          <polygon points="25,55 5,130 45,130" fill="#0D261D"/>
+          <polygon points="55,42 30,130 80,130" fill="#133528"/>
+          <polygon points="88,60 65,130 110,130" fill="#0D261D"/>
+          <polygon points="275,55 250,130 300,130" fill="#0D261D"/>
+          <polygon points="308,40 282,130 334,130" fill="#133528"/>
+          <polygon points="338,62 318,130 358,130" fill="#0D261D"/>
+          <!-- Great Lakes Water Horizon -->
+          <rect x="0" y="128" width="360" height="52" fill="#0B1926"/>
+          <line x1="0" y1="128" x2="360" y2="128" stroke="#E09F67" stroke-opacity="0.4" stroke-width="1"/>
+          <!-- Center Faceted Agate Emblem -->
+          <circle cx="180" cy="96" r="46" fill="#FF6224" fill-opacity="0.15"/>
+          <polygon points="180,46 218,74 204,122 156,122 142,74" fill="url(#agateGrad)" stroke="#F5B73B" stroke-width="2"/>
+          <polygon points="180,60 205,79 195,110 165,110 155,79" fill="none" stroke="#FFD8A8" stroke-opacity="0.6" stroke-width="1.5"/>
+          <circle cx="170" cy="76" r="3.5" fill="#FFFFFF"/>
+        </svg>
+      </div>
+      <span class="celebration-badge">STAGE 4 FINISH VERIFIED</span>
+      <h2 id="celebration-title">Batch Polish Complete</h2>
+      <p id="celebration-text">Your completed Stage 4 cycle has been permanently stamped to your progression timeline.</p>
+      <button id="btn-close-celebration" class="btn-primary-large" type="button">Return to Workshop</button>
     </div>
   </div>
 
-  <!-- CHUNKY 4-TAB BOTTOM NAVIGATION BAR -->
-  <nav class="bottom-nav">
-    <button class="nav-btn active" data-target="view-tumblers" type="button">
-      <span class="nav-icon">⚙️</span>
-      <span class="nav-label">Barrels</span>
+  <!-- FLOATING FROSTED BOTTOM NAVIGATION DOCK -->
+  <nav class="bottom-dock">
+    <button class="dock-btn active" data-target="view-tumblers" type="button">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="9" rx="1"></rect>
+        <rect x="14" y="3" width="7" height="5" rx="1"></rect>
+        <rect x="14" y="12" width="7" height="9" rx="1"></rect>
+        <rect x="3" y="16" width="7" height="5" rx="1"></rect>
+      </svg>
+      <span>Barrels</span>
     </button>
-    <button class="nav-btn" data-target="view-timeline" type="button">
-      <span class="nav-icon">⏳</span>
-      <span class="nav-label">Timeline</span>
+    <button class="dock-btn" data-target="view-timeline" type="button">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+      </svg>
+      <span>Timeline</span>
     </button>
-    <button class="nav-btn" data-target="view-guide" type="button">
-      <span class="nav-icon">🪨</span>
-      <span class="nav-label">Guide</span>
+    <button class="dock-btn" data-target="view-guide" type="button">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+        <polyline points="2 17 12 22 22 17"></polyline>
+        <polyline points="2 12 12 17 22 12"></polyline>
+      </svg>
+      <span>Field Guide</span>
     </button>
-    <button class="nav-btn" data-target="view-scanner" type="button">
-      <span class="nav-icon">🔍</span>
-      <span class="nav-label">Scanner</span>
+    <button class="dock-btn" data-target="view-scanner" type="button">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 7V5a2 2 0 0 1 2-2h2"></path>
+        <path d="M17 3h2a2 2 0 0 1 2 2v2"></path>
+        <path d="M21 17v2a2 2 0 0 1-2 2h-2"></path>
+        <path d="M7 21H5a2 2 0 0 1-2-2v-2"></path>
+        <circle cx="12" cy="12" r="3"></circle>
+      </svg>
+      <span>Scanner</span>
     </button>
   </nav>
 
